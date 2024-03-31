@@ -1,0 +1,6 @@
+@POC_Quartz_HostAddress = http://localhost:5014
+
+GET {{POC_Quartz_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
