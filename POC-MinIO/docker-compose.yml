@@ -1,0 +1,30 @@
+version: '3.3'
+name: poc-minio
+services:
+  minio:
+    image: quay.io/minio/minio
+    container_name: minio
+    hostname: minio.docker.internal
+    networks:
+      default:
+        ipv4_address: 172.20.0.2
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - minio-data:/data
+    environment:
+      MINIO_ROOT_USER: pocadmin
+      MINIO_ROOT_PASSWORD: qwert1234
+    command: server --console-address ":9001" /data
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.20.0.0/16
+         gateway: 172.20.0.1
+
+volumes:
+  minio-data:

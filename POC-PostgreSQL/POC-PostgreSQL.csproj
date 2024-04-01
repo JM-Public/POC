@@ -7,6 +7,7 @@
     <RootNamespace>POC_PostgreSQL</RootNamespace>
     <UserSecretsId>d4946ffe-32f9-4702-a1cc-d1273d464783</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileRunArguments>--network poc-postgresql_default</DockerfileRunArguments>
   </PropertyGroup>
 
   <ItemGroup>

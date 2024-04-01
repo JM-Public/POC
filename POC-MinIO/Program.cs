@@ -1,19 +1,18 @@
 using Minio;
 
-//var endpoint = "play.min.io";
-//var accessKey = "yQ2D5SL3QRhUo4JeuDiX";
-//var secretKey = "g3BzP09RTlBEEAEcyy9pZgRJCWcg5hkWXwZ29Uok";
-
-var endpoint = "172.17.0.2:9000";
-var accessKey = "KQJx6CfWkjJrEdLc5sCw";
-var secretKey = "FmwhlZ8pKEOKvibGPjaKsBzm2nujMHX2zUqsmd4I";
+using POC_MinIO.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add Minio using the custom endpoint and configure additional settings for default MinioClient initialization
-builder.Services.AddMinio(configureClient => configureClient.WithEndpoint(endpoint).WithCredentials(accessKey, secretKey).WithSSL(false));
-
 // Add services to the container.
+var minioOptions = builder.Configuration.GetRequiredSection("MinioOptions").Get<MinioOptions>();
+
+builder.Services.AddMinio(configureClient =>
+{
+    configureClient.WithEndpoint(minioOptions?.EndPoint)
+                   .WithCredentials(minioOptions?.AccessKey, minioOptions?.SecretKey)
+                   .WithSSL(false);
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -7,6 +7,7 @@
     <RootNamespace>POC_Redis</RootNamespace>
     <UserSecretsId>569df30f-dcb0-4ce4-8c4d-ad6fe14f8f63</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileRunArguments>--network poc-redis_default</DockerfileRunArguments>
   </PropertyGroup>
 
   <ItemGroup>

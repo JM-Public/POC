@@ -1,3 +1,4 @@
+using Npgsql;
 
 namespace POC_PostgreSQL
 {
@@ -8,6 +9,8 @@ namespace POC_PostgreSQL
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            var connectionString = builder.Configuration.GetConnectionString("PostgreSQL");
+            builder.Services.AddScoped(provider => new NpgsqlConnection(connectionString));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -27,11 +30,9 @@ namespace POC_PostgreSQL
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
         }
     }
 }
- 

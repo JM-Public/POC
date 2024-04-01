@@ -1,0 +1,26 @@
+version: '3.3'
+name: poc-redis
+services:
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+    hostname: redis.docker.internal
+    networks:
+      default:
+        ipv4_address: 172.20.0.2
+    volumes:
+      - redis-data:/data
+    ports:
+      - 6379:6379
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.20.0.0/16
+         gateway: 172.20.0.1
+
+volumes:
+  redis-data:

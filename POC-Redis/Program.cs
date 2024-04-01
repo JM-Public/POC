@@ -10,7 +10,7 @@ namespace POC_Redis
             // Add services to the container.
             builder.Services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = "172.17.0.5:6379";
+                options.Configuration = "redis.docker.internal:6379";
             });
 
             builder.Services.AddControllers();

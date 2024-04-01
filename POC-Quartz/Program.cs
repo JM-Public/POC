@@ -1,6 +1,26 @@
+using Quartz;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddQuartz(opt =>
+{
+    opt.UsePersistentStore(store =>
+    {
+        store.UseClustering();
+        store.UsePostgres(postgres =>
+        {
+            postgres.ConnectionStringName = "QuartzPostgreSQL";            
+        });
+        store.RetryInterval = TimeSpan.FromSeconds(5);
+        store.UseNewtonsoftJsonSerializer();
+        store.PerformSchemaValidation = false;
+    });
+});
+builder.Services.AddQuartzHostedService(opt =>
+{
+    opt.WaitForJobsToComplete = true;
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
